@@ -1,5 +1,5 @@
 <div ng-controller='flexigraph' ng-init="init()">
-  <div ng-show="panel.counter_pos == 'above' && (panel.chart == 'bar' || panel.chart == 'pie')" id='{{$id}}-legend'>
+  <div ng-show="panel.counter_pos == 'above'" id='{{$id}}-legend'>
     <!-- vertical legend -->
     <table class="small" ng-show="panel.arrangement == 'vertical'">
       <tr ng-repeat="query in data">
@@ -16,9 +16,9 @@
 
   <div style="clear:both"></div>
 
-  <div ng-show="panel.chart == 'pie' || panel.chart == 'bar'" flexigraph-chart params="{{panel}}" style="position:relative"></div>
+  <div flexigraph-chart params="{{panel}}" style="position:relative"></div>
 
-  <div ng-show="panel.counter_pos == 'below' && (panel.chart == 'bar' || panel.chart == 'pie')" id='{{$id}}-legend'>
+  <div ng-show="panel.counter_pos == 'below'" id='{{$id}}-legend'>
     <!-- vertical legend -->
     <table class="small" ng-show="panel.arrangement == 'vertical'">
       <tr ng-repeat="query in data">
@@ -32,13 +32,5 @@
     </div><br>
 
   </div>
-
-  <div ng-show="panel.chart == 'total'"><div ng-style="panel.style" style="line-height:{{panel.style['font-size']}}">{{flexigraph}}</div></div>
-
-  <span ng-show="panel.chart == 'list'">
-    <div ng-style="panel.style" style="display:inline-block;line-height:{{panel.style['font-size']}}" ng-repeat="query in data">
-      <i class="icon-circle" style="color:{{query.info.color}}"></i> {{query.info.alias}} ({{query.flexigraph}})
-    </div>
-  </span><br ng-show="panel.arrangement == 'vertical' && panel.chart == 'list'">
 
 </div>
