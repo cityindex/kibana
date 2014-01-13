@@ -53,44 +53,60 @@ define([
     };
 
     $scope.get_data = function(segment,query_id) {
-      delete $scope.panel.error;
-      $scope.panelMeta.loading = true;
+      var
+        _segment,
+        request,
+        boolQuery,
+        results;
+
+      $scope.panel.error =  false;
 
       // Make sure we have everything for the request to complete
       if(dashboard.indices.length === 0) {
         return;
       }
 
-      var _segment = _.isUndefined(segment) ? 0 : segment;
-      var request = $scope.ejs.Request().indices(dashboard.indices[_segment]);
+      $scope.panelMeta.loading = true;
+
+      _segment = _.isUndefined(segment) ? 0 : segment;
+      $scope.segment = _segment;
+
+      request = $scope.ejs.Request().indices(dashboard.indices[_segment]);
 
       $scope.panel.queries.ids = querySrv.idsByMode($scope.panel.queries);
       var queries = querySrv.getQueryObjs($scope.panel.queries.ids);
 
-      // Build the question part of the query
-      _.each(queries, function(q) {
-        var _q = $scope.ejs.FilteredQuery(
-          querySrv.toEjsObj(q),
-          filterSrv.getBoolFilter(filterSrv.ids));
-
-        request = request
-          .facet($scope.ejs.QueryFacet(q.id)
-            .query(_q)
-          ).size(0);
+      boolQuery = $scope.ejs.BoolQuery();
+      _.each(queries,function(q) {
+        boolQuery = boolQuery.should(querySrv.toEjsObj(q));
       });
 
-      // Populate the inspector panel
+      request = request.query(
+        $scope.ejs.FilteredQuery(
+          boolQuery,
+          filterSrv.getBoolFilter(filterSrv.ids)
+        ))
+        .highlight(
+          $scope.ejs.Highlight($scope.panel.highlight)
+          .fragmentSize(2147483647) // Max size of a 32bit unsigned int
+          .preTags('@start-highlight@')
+          .postTags('@end-highlight@')
+        )
+        .size(1024)
+        .sort("@timestamp", "asc");
+
       $scope.inspector = angular.toJson(JSON.parse(request.toString()),true);
 
-      // Then run it
-      var results = request.doSearch();
+      results = request.doSearch();
 
       // Populate scope when we have results
       results.then(function(results) {
         $scope.panelMeta.loading = false;
+
         if(_segment === 0) {
           $scope.hits = 0;
           $scope.data = [];
+          $scope.current_fields = [];
           query_id = $scope.query_id = new Date().getTime();
         }
 
@@ -100,31 +116,38 @@ define([
           return;
         }
 
-        // Make sure we're still on the same query/queries
+        // Check that we're still on the same query, if not stop
         if($scope.query_id === query_id) {
-          var i = 0;
-          _.each(queries, function(q) {
-            var v = results.facets[q.id];
-            var hits = _.isUndefined($scope.data[i]) || _segment === 0 ?
-              v.count : $scope.data[i].hits+v.count;
-            $scope.hits += v.count;
 
-            // Create series
-            $scope.data[i] = {
-              info: q,
-              id: q.id,
-              hits: hits,
-              data: [[i,hits]]
+          // This is exceptionally expensive, especially on events with a large number of fields
+          $scope.data = $scope.data.concat(_.map(results.hits.hits, function(hit) {
+            var
+              _h = _.clone(hit),
+              _p = _.omit(hit,'_source','sort','_score');
+
+            // _source is kind of a lie here, never display it, only select values from it
+            _h.kibana = {
+              _source : _.extend(kbn.flatten_json(hit._source),_p),
+              highlight : kbn.flatten_json(hit.highlight||{})
             };
 
-            i++;
-          });
-          $scope.$emit('render');
-          if(_segment < dashboard.indices.length-1) {
-            $scope.get_data(_segment+1,query_id);
-          }
+            // Kind of cheating with the _.map here, but this is faster than kbn.get_all_fields
+            $scope.current_fields = $scope.current_fields.concat(_.keys(_h.kibana._source));
 
+            return _h;
+          }));
+
+          $scope.current_fields = _.uniq($scope.current_fields);
+          $scope.hits += results.hits.total;
+
+        } else {
+          return;
         }
+
+        if (_segment+1 < dashboard.indices.length) {
+          $scope.get_data(_segment+1,$scope.query_id);
+        }
+
       });
     };
 
@@ -139,8 +162,8 @@ define([
       $scope.refresh =  false;
       $scope.$emit('render');
     };
-  });
 
+  });
 
   module.directive('flexigraphChart', function(querySrv) {
     return {
