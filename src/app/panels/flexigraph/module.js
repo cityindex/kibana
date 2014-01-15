@@ -5,12 +5,16 @@ define([
   'jquery',
   'kbn',
 
-  'jquery.flot'
-], function (angular, app, _, $, kbn) {
+  './Graph/Graph',
+  './Graph/Utils'
+ ],
+ function (angular, app, _, $, kbn) {
   'use strict';
 
   var module = angular.module('kibana.panels.flexigraph', []);
   app.useModule(module);
+
+  var _graph;
 
   module.controller('flexigraph', function($scope, querySrv, dashboard, filterSrv) {
     $scope.panelMeta = {
@@ -44,6 +48,9 @@ define([
 
     $scope.init = function () {
       $scope.hits = 0;
+
+      _graph = new FlexiGraph();
+      _graph.init('FlexiGraph_');
 
       $scope.$on('refresh',function(){
         $scope.get_data();
@@ -148,6 +155,7 @@ define([
           $scope.get_data(_segment+1,$scope.query_id);
         }
 
+        _graph.update($scope.data);
       });
     };
 
@@ -187,47 +195,14 @@ define([
 
           try {
             _.each(scope.data,function(series) {
-              series.label = series.info.alias;
-              series.color = series.info.color;
             });
           } catch(e) {return;}
 
-          // Populate element
           try {
-            // Add plot to scope so we can build out own legend
-            scope.plot = $.plot(elem, scope.data, {
-              legend: { show: false },
-              series: {
-                lines:  { show: false, },
-                bars:   { show: true,  fill: 1, barWidth: 0.8, horizontal: false },
-                shadowSize: 1
-              },
-              yaxis: { show: true, min: 0, color: "#c8c8c8" },
-              xaxis: { show: false },
-              grid: {
-                borderWidth: 0,
-                borderColor: '#eee',
-                color: "#eee",
-                hoverable: true,
-              },
-              colors: querySrv.colors
-            });
           } catch(e) {
             elem.text(e);
           }
         }
-
-        var $tooltip = $('<div>');
-        elem.bind("plothover", function (event, pos, item) {
-          if (item) {
-            var value = item.datapoint[1];
-            $tooltip
-              .html(kbn.query_color_dot(item.series.color, 20) + ' ' + value.toFixed(0))
-              .place_tt(pos.pageX, pos.pageY);
-          } else {
-            $tooltip.remove();
-          }
-        });
 
       }
     };
