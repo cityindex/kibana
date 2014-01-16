@@ -214,8 +214,8 @@
         if (!_isDataLoaded)
             return;
 
+        _startTime = _items[0].Time;
         _endTime = last(_items).Time;
-        _startTime = addSeconds(_endTime, -_defaultPeriodSeconds);
 
         updateTimeScale();
 
