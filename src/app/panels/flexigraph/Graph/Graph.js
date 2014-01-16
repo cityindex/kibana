@@ -1,5 +1,5 @@
 ﻿function FlexiGraph() {
-    var _ticks = [];
+    var _items = [];
     var _isDataLoaded = false;
     var _canvas;
     var _mainDiv;
@@ -45,7 +45,7 @@
 
     this.update = function(data)
     {
-        _ticks = [];
+        _items = [];
 
         _.each(data, function(item) {
             var val = item._source.Value;
@@ -58,10 +58,10 @@
                 Price: val,
             };
 
-            _ticks[_ticks.length] = itemData;
+            _items[_items.length] = itemData;
         });
 
-        _ticks.sort(function (a, b) { return a.Time - b.Time; });
+        _items.sort(function (a, b) { return a.Time - b.Time; });
 
         _isDataLoaded = true;
         onResize();
@@ -172,7 +172,7 @@
                 return 1;
             return 0;
         };
-        var res = binarySearch(_ticks, comparer);
+        var res = binarySearch(_items, comparer);
         if (res < 0)
             res = ~res;
         return res;
@@ -182,8 +182,8 @@
         var min = Number.MAX_VALUE;
         var max = Number.MIN_VALUE;
 
-        for (var i = start; i < _ticks.length; i++) {
-            var item = _ticks[i];
+        for (var i = start; i < _items.length; i++) {
+            var item = _items[i];
             if (item.Time >= _endTime)
                 break;
 
@@ -214,7 +214,7 @@
         if (!_isDataLoaded)
             return;
 
-        _endTime = last(_ticks).Time;
+        _endTime = last(_items).Time;
         _startTime = addSeconds(_endTime, -_defaultPeriodSeconds);
 
         updateTimeScale();
@@ -288,7 +288,7 @@
 
         var startItem = findItemIndex(_startTime);
 
-        if (startItem >= _ticks.length)
+        if (startItem >= _items.length)
             return;
 
         if (!_priceBoundsInitDone)
@@ -297,8 +297,8 @@
         var yList = [];
         var xPrev = -1;
 
-        for (var i = startItem; i < _ticks.length; i++) {
-            var item = _ticks[i];
+        for (var i = startItem; i < _items.length; i++) {
+            var item = _items[i];
             if (item.Time > _endTime)
                 break;
 
