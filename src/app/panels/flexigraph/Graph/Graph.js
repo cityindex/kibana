@@ -7,10 +7,10 @@
     var _endTimeControl;
     var _startTime = {};
     var _endTime = {};
-    var _priceBoundsInitDone = false;
-    var _minPrice = NaN;
-    var _maxPrice = NaN;
-    var _priceScale = NaN;
+    var _valueBoundsInitDone = false;
+    var _minValue = NaN;
+    var _maxValue = NaN;
+    var _valueScale = NaN;
     var _timeScale = NaN;
     var _defaultPeriodSeconds = 60 * 60;
     var _isDragging = false;
@@ -55,7 +55,7 @@
 
             var itemData = {
                 Time: convertDateTime(timeStr),
-                Price: val,
+                Value: val,
             };
 
             _items[_items.length] = itemData;
@@ -124,7 +124,7 @@
 
             _draggingPrevPoint = getEventLocation(pos);
 
-            _priceBoundsInitDone = false;
+            _valueBoundsInitDone = false;
 
             updateParamsView();
             paint();
@@ -152,7 +152,7 @@
 
         scaleTime(factor);
 
-        _priceBoundsInitDone = false;
+        _valueBoundsInitDone = false;
 
         updateParamsView();
         paint();
@@ -178,7 +178,7 @@
         return res;
     }
 
-    function updatePriceBounds(start) {
+    function updateValueBounds(start) {
         var min = Number.MAX_VALUE;
         var max = Number.MIN_VALUE;
 
@@ -187,22 +187,22 @@
             if (item.Time >= _endTime)
                 break;
 
-            min = Math.min(min, item.Price);
-            max = Math.max(max, item.Price);
+            min = Math.min(min, item.Value);
+            max = Math.max(max, item.Value);
         }
 
-        _minPrice = min;
-        _maxPrice = max;
+        _minValue = min;
+        _maxValue = max;
 
-        _priceScale = (_canvas.height - 1) / (_maxPrice - _minPrice);
+        _valueScale = (_canvas.height - 1) / (_maxValue - _minValue);
 
-        _priceBoundsInitDone = true;
+        _valueBoundsInitDone = true;
 
         updateParamsView();
     }
 
-    function getOffsetY(price) {
-        var y = _canvas.height - Math.floor((price - _minPrice) * _priceScale);
+    function getOffsetY(value) {
+        var y = _canvas.height - Math.floor((value - _minValue) * _valueScale);
         return y;
     }
 
@@ -291,8 +291,8 @@
         if (startItem >= _items.length)
             return;
 
-        if (!_priceBoundsInitDone)
-            updatePriceBounds(startItem);
+        if (!_valueBoundsInitDone)
+            updateValueBounds(startItem);
 
         var yList = [];
         var xPrev = -1;
@@ -303,7 +303,7 @@
                 break;
 
             var x = getOffsetX(item.Time);
-            var y = getOffsetY(item.Price);
+            var y = getOffsetY(item.Value);
 
             if (xPrev == -1) {
                 xPrev = x;
