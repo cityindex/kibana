@@ -2,22 +2,18 @@
 
   <div style="clear:both"></div>
 
-  <div flexigraph-chart params="{{panel}}" style="position:relative">
-    <div id="FlexiGraph_MainDiv" style="">
-        <div style="float: left;">
-            <table>
-                <tr>
-                    <td id="FlexiGraph_StartTime">Start time</td>
-                    <td id="FlexiGraph_EndTime" style="text-align: right;">End time</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <canvas id="FlexiGraph_Canvas" style="background-color: black;"></canvas>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+  <div id="FlexiGraph_MainDiv" flexigraph-chart params="{{panel}}" style="position:relative">
+    <table>
+        <tr>
+            <td id="FlexiGraph_StartTime">Start time</td>
+            <td id="FlexiGraph_EndTime" style="text-align: right;">End time</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <canvas id="FlexiGraph_Canvas" style="background-color: black;"></canvas>
+            </td>
+        </tr>
+    </table>
   </div>
 
 </div>

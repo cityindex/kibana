@@ -93,9 +93,6 @@
     }
 
     function onResize() {
-        // TODO
-        //_mainDiv.width = _mainDiv.parentNode.width;
-        //_mainDiv.height = _mainDiv.parentNode.height;
         _canvas.width = _mainDiv.clientWidth;
         paint();
     }
