@@ -61,6 +61,8 @@
             _ticks[_ticks.length] = itemData;
         });
 
+        _ticks.sort(function (a, b) { return a.Time - b.Time; });
+
         _isDataLoaded = true;
         onResize();
     }
