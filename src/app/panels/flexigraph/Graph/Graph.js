@@ -36,9 +36,9 @@
         window.addEventListener('mousemove', onMouseMove, false);
 
         // Firefox
-        _canvas.addEventListener('DOMMouseScroll', onWheel, false);
+        window.addEventListener('DOMMouseScroll', onWheel, false);
         // IE9, Chrome, Safari, Opera
-        _canvas.addEventListener("mousewheel", onWheel, false);
+        window.addEventListener("mousewheel", onWheel, false);
 
         onResize();
     }
@@ -130,6 +130,10 @@
     }
 
     function onWheel(e) {
+        var curElement = document.elementFromPoint(e.clientX, e.clientY);
+        if (curElement != _canvas)
+            return;
+
         var delta = e.wheelDelta;
         if (!delta)
             delta = -e.detail; // Firefox
@@ -150,6 +154,8 @@
 
         updateParamsView();
         paint();
+
+        e.preventDefault();
     }
 
     function scaleTime(scaleFactor) {
