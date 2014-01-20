@@ -98,7 +98,7 @@
     }
 
     function onResize() {
-        _canvas.width = _canvas.parentNode.clientWidth;
+        _canvas.width = _mainDiv.clientWidth - _minValueControl.clientWidth;
         paint();
     }
 
@@ -202,6 +202,7 @@
         _valueBoundsInitDone = true;
 
         updateParamsView();
+        onResize();
     }
 
     function getOffsetY(value) {
