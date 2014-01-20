@@ -49,10 +49,9 @@
 
         _.each(data, function(item) {
             var val = item._source.Value;
-            if (!val)
+            if (!val || isNaN(val))
                 return;
             var timeStr = item._source['@timestamp'];
-
             var itemData = {
                 Time: convertDateTime(timeStr),
                 Value: val,
