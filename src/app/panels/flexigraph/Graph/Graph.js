@@ -5,6 +5,8 @@
     var _mainDiv;
     var _startTimeControl;
     var _endTimeControl;
+    var _minValueControl;
+    var _maxValueControl;
     var _startTime = {};
     var _endTime = {};
     var _valueBoundsInitDone = false;
@@ -27,6 +29,8 @@
          _mainDiv = document.getElementById(idPrefix + 'MainDiv');
          _startTimeControl = document.getElementById(idPrefix + 'StartTime');
          _endTimeControl = document.getElementById(idPrefix + 'EndTime');
+         _minValueControl = document.getElementById(idPrefix + 'MinValue');
+         _maxValueControl = document.getElementById(idPrefix + 'MaxValue');
         _canvas = document.getElementById(idPrefix + "Canvas");
 
         window.addEventListener('resize', onResize, false);
@@ -94,7 +98,7 @@
     }
 
     function onResize() {
-        _canvas.width = _mainDiv.clientWidth;
+        _canvas.width = _canvas.parentNode.clientWidth;
         paint();
     }
 
@@ -246,6 +250,8 @@
     function updateParamsView() {
         _startTimeControl.innerHTML = _startTime.toUTCString();
         _endTimeControl.innerHTML = _endTime.toUTCString();
+        _minValueControl.innerHTML = _minValue;
+        _maxValueControl.innerHTML = _maxValue;
     }
 
     function drawLine(context, x1, y1, x2, y2, style) {

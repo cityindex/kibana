@@ -3,17 +3,28 @@
   <div style="clear:both"></div>
 
   <div id="FlexiGraph_MainDiv" flexigraph-chart params="{{panel}}" style="position:relative">
-    <table>
-        <tr>
-            <td id="FlexiGraph_StartTime">Start time</td>
-            <td id="FlexiGraph_EndTime" style="text-align: right;">End time</td>
-        </tr>
-        <tr>
-            <td colspan="2">
+          <table width="100%" height="100%">
+            <tr>
+              <td></td>
+              <td id="FlexiGraph_StartTime">Start time</td>
+              <td id="FlexiGraph_EndTime" style="text-align: right;">End time</td>
+            </tr>
+            <tr>
+              <td>
+                <table height="100%">
+                  <tr style="vertical-align: top;">
+                    <td id="FlexiGraph_MaxValue">Max Value</td>
+                  </tr>
+                  <tr style="vertical-align: bottom;">
+                    <td id="FlexiGraph_MinValue">Min Value</td>
+                  </tr>
+                </table>
+              </td>
+              <td colspan="2" style="width: 100%; white-space: nowrap">
                 <canvas id="FlexiGraph_Canvas" style="background-color: black;"></canvas>
-            </td>
-        </tr>
-    </table>
+              </td>
+            </tr>
+          </table>
   </div>
 
 </div>
