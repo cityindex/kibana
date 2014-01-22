@@ -156,6 +156,7 @@ define([
         }
 
         _graph.update($scope.data);
+        $scope.$emit('render');
       });
     };
 
@@ -188,17 +189,12 @@ define([
           render_panel();
         });
 
-        // Function for rendering panel
         function render_panel() {
           // IE doesn't work without this
           elem.css({height:scope.panel.height||scope.row.height});
 
           try {
-            _.each(scope.data,function(series) {
-            });
-          } catch(e) {return;}
-
-          try {
+            _graph.paint();
           } catch(e) {
             elem.text(e);
           }

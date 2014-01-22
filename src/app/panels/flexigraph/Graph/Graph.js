@@ -101,7 +101,6 @@
 
     function onResize() {
         _canvas.width = _mainDiv.clientWidth - _minValueControl.clientWidth;
-        paint();
     }
 
     function onMouseDown(event) {
@@ -341,4 +340,6 @@
 
         endProfiling(start);
     }
+
+    this.paint = paint;
 }
