@@ -66,6 +66,8 @@
 
         _items.sort(function (a, b) { return a.Time - b.Time; });
 
+        _timeBoundsInitDone = false;
+        _valueBoundsInitDone = false;
         _isDataLoaded = true;
         onResize();
     }
