@@ -99,7 +99,7 @@ define([
           .preTags('@start-highlight@')
           .postTags('@end-highlight@')
         )
-        .size(1024)
+        .size(10000000)
         .sort("@timestamp", "asc");
 
       $scope.inspector = angular.toJson(JSON.parse(request.toString()),true);
