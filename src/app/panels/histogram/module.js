@@ -238,6 +238,11 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
       }
     };
 
+    if (_.isArray($scope.panel.queries)) {
+      console.log("Upgrading histogram panel format", $scope.panel.queries, _d.queries);
+      $scope.panel.queries = _d.queries;
+    }
+    
     _.defaults($scope.panel,_d);
     _.defaults($scope.panel.tooltip,_d.tooltip);
     _.defaults($scope.panel.annotate,_d.annotate);
