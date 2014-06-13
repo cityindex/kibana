@@ -138,6 +138,10 @@ function (angular, app, _, $, kbn) {
       });
       $scope.get_data();
 
+      $scope.lookupPopover = {
+        "title": "Lookup popup",
+        "content": function() { return "TODO: Lookup data related to term: "+ this.dataset.term }
+      };
     };
 
     $scope.get_data = function() {
