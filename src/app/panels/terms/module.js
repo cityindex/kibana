@@ -139,8 +139,9 @@ function (angular, app, _, $, kbn) {
       $scope.get_data();
 
       $scope.lookupPopover = {
-        "title": "Lookup popup",
-        "content": function() { return "TODO: Lookup data related to term: "+ this.dataset.term }
+        "content": function() { 
+          return "TODO: Lookup data related to term: " + this.dataset.term + " using: " + this.dataset.lookupurl+this.dataset.term;
+        }
       };
     };
 
@@ -284,6 +285,7 @@ function (angular, app, _, $, kbn) {
             if(scope.panel.tmode === 'terms_stats') {
               slice = { label : v.term, data : [[k,v[scope.panel.tstat]]], actions: true};
             }
+            slice.lookupurl = scope.panel.lookupurl;
             scope.data.push(slice);
             k = k + 1;
           });
