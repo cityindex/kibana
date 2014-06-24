@@ -140,7 +140,7 @@ function (angular, app, _, $, kbn) {
 
       $scope.lookupPopover = {
         "content": function() { 
-          return "<iframe src=" + this.dataset.lookupurl+this.dataset.term + " width=350 height=400 />"
+          return "<iframe src=" + this.dataset.lookupurl+this.dataset.term + " width=350 height=400 />";
         }
       };
     };
