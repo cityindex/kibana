@@ -43,7 +43,7 @@ echo $(date)
 
 echo "=====> Pushing new version..."
 echo $(date)
-	CF_TRACE=false cf push $APP -p=$DIST_FOLDER -m=64m -b=https://github.com/cloudfoundry-community/nginx-buildpack.git | indent
+	CF_TRACE=false cf push $APP -p=$DIST_FOLDER -m=64m -b=nginx-buildpack | indent
 	cf apps | grep $APP | indent
 
 echo "=====> Running smoke tests against $APP"
