@@ -138,6 +138,11 @@ function (angular, app, _, $, kbn) {
       });
       $scope.get_data();
 
+      $scope.lookupPopover = {
+        "content": function() { 
+          return "<iframe src=" + this.dataset.lookupurl+this.dataset.term + " width=350 height=400 />";
+        }
+      };
     };
 
     $scope.get_data = function() {
@@ -280,6 +285,7 @@ function (angular, app, _, $, kbn) {
             if(scope.panel.tmode === 'terms_stats') {
               slice = { label : v.term, data : [[k,v[scope.panel.tstat]]], actions: true};
             }
+            slice.lookupurl = scope.panel.lookupurl;
             scope.data.push(slice);
             k = k + 1;
           });

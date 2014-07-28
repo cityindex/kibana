@@ -66,5 +66,9 @@
       <div class="editor-option" ng-show="panel.chart == 'pie'">
         <label class="small">Labels</label><input type="checkbox" ng-model="panel.labels" ng-checked="panel.labels">
       </div>
+      <div class="editor-option" ng-show="panel.chart == 'table'">
+        <label class="small">Lookup Url (term value is appended)</label>
+        <input type="text" class="input-small" ng-model="panel.lookupurl">
+      </div>
     </div>
   </div>
