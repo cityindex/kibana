@@ -4,12 +4,12 @@
     "query": {
       "list": {
         "0": {
+          "id": 0,
+          "type": "lucene",
           "query": "*",
           "alias": "",
           "color": "#7EB26D",
-          "id": 0,
           "pin": false,
-          "type": "lucene",
           "enable": true
         }
       },
@@ -44,7 +44,7 @@
       "collapsable": true,
       "panels": [
         {
-          "span": 8,
+          "span": 6,
           "editable": true,
           "type": "histogram",
           "loadingEditor": false,
@@ -116,15 +116,68 @@
           }
         },
         {
-          "error": false,
-          "span": 4,
+          "span": 3,
           "editable": true,
-          "type": "text",
+          "type": "terms",
           "loadingEditor": false,
-          "mode": "markdown",
-          "content": "This is blankish dashboard, add queries, filters and then rows and panels to create your dashboard... and delete this panel first ;-)",
-          "style": {},
-          "title": "New dashboard"
+          "field": "@source.service",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "table",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "@source.service"
+        },
+        {
+          "span": 3,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "@source.environment",
+          "exclude": [],
+          "missing": false,
+          "other": false,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "table",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "@source.environment"
         }
       ],
       "notice": false
@@ -135,7 +188,40 @@
       "editable": true,
       "collapse": false,
       "collapsable": true,
-      "panels": [],
+      "panels": [
+        {
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "@source.host",
+          "exclude": [],
+          "missing": false,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "vertical",
+          "chart": "pie",
+          "counter_pos": "below",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "@source.host"
+        }
+      ],
       "notice": false
     },
     {
@@ -208,7 +294,9 @@
       "enable": true,
       "query": "*",
       "pinned": true,
-      "history": [],
+      "history": [
+        "*"
+      ],
       "remember": 10
     },
     {
