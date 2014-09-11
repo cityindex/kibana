@@ -44,6 +44,17 @@
       "collapsable": true,
       "panels": [
         {
+          "error": false,
+          "span": 12,     
+          "editable": true,     
+          "type": "text",     
+          "loadingEditor": false,     
+          "mode": "markdown",     
+          "content": "Use the magnifying glass icons below to Filter the log data to show the @source.service, @source.environment that you are interested in.\n\nThen add some additional Terms panels to slice and dice the data using Pie and Bar charts, and Text lists.\n\nFinally, delete this text; and hit the save icon to save your dashboard.",    
+          "style": {},    
+          "title": "Getting started"    
+        }, 
+        {
           "span": 6,
           "editable": true,
           "type": "histogram",
@@ -247,7 +258,7 @@
           "overflow": "min-height",
           "fields": [
             "@timestamp",
-            "@source_host",
+            "@source.host",
             "@message"
           ],
           "highlight": [],
