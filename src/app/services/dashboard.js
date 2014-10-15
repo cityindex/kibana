@@ -146,7 +146,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
     this.refresh = function() {
       if(self.current.index.interval !== 'none') {
         
-        $http.get('https://api.statuspage.io/v1/pages/rr6mvdg2czkt/components/2vx2724ljl64.json?api_key=208b7aaabc62646caaa188b0e456c851f34c6e34716fc436df1539f8a25356bd').
+        $http.get('/statuspage/component-status').
           success(function(data, status, headers, config) {
             if (data.status === 'operational') {
               alertSrv.set(data.name,'All items are fully ' + data.status, 'info');
