@@ -147,32 +147,32 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
       if(self.current.index.interval !== 'none') {
         
         $http.get('/statuspage/component-status')
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             if (data.status !== 'operational') {
               var alertParams = {};
               var moreButton = '<a href="http://status.labs.cityindex.com/" target="_blank" class="btn btn-mini btn-primary">Read more</a>';
 
               switch(data.status) {
-                case 'partial_outage':
-                  alertParams = {
-                    title: 'Partial Outage:',
-                    desc: 'This component is partially down or is experiencing an outage only affecting a small percentage of constituents.&nbsp;',
-                    type: 'error'
-                  };
-                  break;
-                case 'major_outage':
-                  alertParams = {
-                    title: 'Major Outage:',
-                    desc: 'This component is completely down or is experiencing major availability disruptions.&nbsp;',
-                    type: 'error'
-                  };
-                  break;
-                default:
-                  alertParams = {
-                    title: 'Degraded Performance:',
-                    desc: 'This component is working as intended but is experiencing performance issues.&nbsp;',
-                    type: 'error'
-                  };
+              case 'partial_outage':
+                alertParams = {
+                  title: 'Partial Outage:',
+                  desc: 'This component is partially down or is experiencing an outage only affecting a small percentage of constituents.&nbsp;',
+                  type: 'error'
+                };
+                break;
+              case 'major_outage':
+                alertParams = {
+                  title: 'Major Outage:',
+                  desc: 'This component is completely down or is experiencing major availability disruptions.&nbsp;',
+                  type: 'error'
+                };
+                break;
+              default:
+                alertParams = {
+                  title: 'Degraded Performance:',
+                  desc: 'This component is working as intended but is experiencing performance issues.&nbsp;',
+                  type: 'error'
+                };
               }
               alertSrv.set(alertParams.title, alertParams.desc + moreButton, alertParams.type);
             }
