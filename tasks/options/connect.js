@@ -18,7 +18,7 @@ module.exports = function(config) {
                 res.end('{"status":"operational","name":"cityindex.logsearch.io (logsearch cluster)","created_at":"2013-08-06T14:34:56.571Z","updated_at":"2014-10-18T08:52:48.210Z","position":1,"description":"The City Index Logsearch cluster","id":"2vx2724ljl64","page_id":"rr6mvdg2czkt"}');
                 //res.end('{"status":"degraded_performance","name":"cityindex.logsearch.io (logsearch cluster)","created_at":"2013-08-06T14:34:56.571Z","updated_at":"2014-10-18T09:15:59.961Z","position":1,"description":"The City Index Logsearch cluster","id":"2vx2724ljl64","page_id":"rr6mvdg2czkt"}');
                 //res.end('{"status":"partial_outage","name":"cityindex.logsearch.io (logsearch cluster)","created_at":"2013-08-06T14:34:56.571Z","updated_at":"2014-10-18T09:16:41.968Z","position":1,"description":"The City Index Logsearch cluster","id":"2vx2724ljl64","page_id":"rr6mvdg2czkt"}');
-                //red.end('{"status":"major_outage","name":"cityindex.logsearch.io (logsearch cluster)","created_at":"2013-08-06T14:34:56.571Z","updated_at":"2014-10-18T09:17:10.048Z","position":1,"description":"The City Index Logsearch cluster","id":"2vx2724ljl64","page_id":"rr6mvdg2czkt"}');
+                //res.end('{"status":"major_outage","name":"cityindex.logsearch.io (logsearch cluster)","created_at":"2013-08-06T14:34:56.571Z","updated_at":"2014-10-18T09:17:10.048Z","position":1,"description":"The City Index Logsearch cluster","id":"2vx2724ljl64","page_id":"rr6mvdg2czkt"}');
               }
             ];
         }
