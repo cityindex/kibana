@@ -174,7 +174,7 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
                   type: 'error'
                 };
               }
-              alertSrv.set(alertParams.title, alertParams.desc + moreButton, alertParams.type);
+              alertSrv.set(alertParams.title, alertParams.desc + moreButton, alertParams.type, 300000);
             }
           })
           .error(function(data, status, headers, config) {
