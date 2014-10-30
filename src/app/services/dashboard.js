@@ -156,21 +156,21 @@ function (angular, $, kbn, _, config, moment, Modernizr) {
               case 'partial_outage':
                 alertParams = {
                   title: 'Partial Outage:',
-                  desc: 'This component is partially down or is experiencing an outage only affecting a small percentage of constituents.&nbsp;',
+                  desc: 'LogSearch is partially down or is experiencing an outage only affecting a small percentage of constituents.&nbsp;',
                   type: 'error'
                 };
                 break;
               case 'major_outage':
                 alertParams = {
                   title: 'Major Outage:',
-                  desc: 'This component is completely down or is experiencing major availability disruptions.&nbsp;',
+                  desc: 'LogSearch is completely down or is experiencing major availability disruptions.&nbsp;',
                   type: 'error'
                 };
                 break;
               default:
                 alertParams = {
                   title: 'Degraded Performance:',
-                  desc: 'This component is working as intended but is experiencing performance issues.&nbsp;',
+                  desc: 'LogSearch is working as intended but is experiencing performance issues.&nbsp;',
                   type: 'error'
                 };
               }
